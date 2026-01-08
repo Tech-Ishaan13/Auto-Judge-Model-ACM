@@ -114,11 +114,37 @@ Actual Hard        31       78      316
 
 ### Prerequisites
 
+- Python 3.8+
+- Git LFS (for downloading model files)
+
+### Step 1: Clone the Repository
+
+```bash
+git clone https://github.com/Tech-Ishaan13/Auto-Judge-Model-ACM.git
+cd Auto-Judge-Model-ACM
+```
+
+### Step 2: Install Git LFS and Pull Model Files
+
+The model files are stored using Git LFS (Large File Storage) due to their size.
+
+```bash
+# Install Git LFS (if not already installed)
+git lfs install
+
+# Pull the actual model files
+git lfs pull
+```
+
+> **Note:** Without `git lfs pull`, the model files will be small pointer files and the app won't work.
+
+### Step 3: Install Python Dependencies
+
 ```bash
 pip install -r requirements.txt
 ```
 
-### Step 1: Start the Backend Server
+### Step 4: Start the Backend Server
 
 ```bash
 python backend_service.py

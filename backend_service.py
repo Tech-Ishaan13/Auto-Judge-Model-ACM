@@ -382,6 +382,6 @@ if __name__ == '__main__':
         print("🚀 Starting AutoJudge backend service with hybrid model...")
         print("📡 Backend running on: http://localhost:5000")
         print("🎯 Using hybrid approach: Classification constrains Regression")
-        print("📊 Model metrics: 56.3% classification accuracy, 1.6305 MAE")
+        print("📊 Model metrics: 54.80% classification accuracy, 1.6536 MAE")
     
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    app.run(debug=False, host='0.0.0.0', port=5000)
