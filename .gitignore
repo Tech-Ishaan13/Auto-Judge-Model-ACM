@@ -1,0 +1,77 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+*.egg-info/
+dist/
+build/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Environment
+.env
+.env.local
+
+# Node (if any)
+node_modules/
+package-lock.json
+
+# Test files (not needed for submission)
+test_*.py
+*_test.py
+debug_*.py
+verify_*.py
+evaluate_*.py
+
+# Duplicate/experimental files
+enhanced_*.py
+corrected_*.py
+definitive_*.py
+proper_*.py
+quick_*.py
+realistic_*.py
+real_*.py
+simple_*.py
+!simple_frontend.html
+bidirectional_*.py
+compare_*.py
+check_*.py
+detailed_*.py
+hybrid_*.py
+!train_both_models_same_split.py
+
+# Extra model folders (only need models_same_split)
+models/
+models_weighted/
+
+# React/TypeScript files (not needed)
+*.tsx
+*.ts
+!*.d.ts
+components/
+services/
+cp-difficulty-predictor/
+
+# Other unnecessary files
+*.docx
+metadata.json
+index.html
+app.py
+run_app.py
+start_autojudge.py
+simple_server.py
+final_model.py
+best_regression_model.py
+
+# OS files
+.DS_Store
+Thumbs.db
