@@ -157,7 +157,8 @@ The web interface provides:
 
 ### Screenshot
 
-*(Add a screenshot of your web interface here)*
+<img width="1812" height="900" alt="image" src="https://github.com/user-attachments/assets/190277fa-09e1-4fbb-ab89-02ed6c117f7f" />
+
 
 ## Project Structure
 
