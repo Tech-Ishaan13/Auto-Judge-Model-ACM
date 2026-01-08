@@ -310,7 +310,7 @@
         
         .model-info {
             position: fixed;
-            top: 20px;
+            top: 60px;
             right: 20px;
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
@@ -413,11 +413,11 @@
         <div class="particle" style="left: 90%; animation-delay: 8s;"></div>
     </div>
 
-    <button class="model-info-btn" onmouseenter="showModelInfo()" onmouseleave="hideModelInfo()">
+    <button class="model-info-btn" onmouseenter="showModelInfo()">
         🤖 Model Info
     </button>
 
-    <div class="model-info" id="modelInfo">
+    <div class="model-info" id="modelInfo" onmouseenter="showModelInfo()" onmouseleave="hideModelInfo()">
         <h3 style="margin-bottom: 1rem;">🧠 Hybrid AI Model</h3>
         
         <div style="background: linear-gradient(45deg, #4ecdc4, #44a08d); padding: 10px; border-radius: 8px;">
@@ -490,13 +490,14 @@
 
         <div id="results" class="results">
             <div class="result-card">
-                <h3 class="result-title">🏷️ Difficulty Classification</h3>
+                <h3 class="result-title">Difficulty Classification</h3>
                 <div id="difficultyClass" class="difficulty-class"></div>
+                <canvas id="pieChart" width="200" height="200" style="margin: 1rem auto; display: block;"></canvas>
                 <div id="confidence" style="margin-top: 1rem;"></div>
             </div>
 
             <div class="result-card">
-                <h3 class="result-title">📊 Difficulty Scores</h3>
+                <h3 class="result-title">Difficulty Scores</h3>
                 <div style="text-align: center; margin: 1rem 0;">
                     <div style="margin-bottom: 1.5rem;">
                         <p style="font-size: 0.9rem; opacity: 0.8; margin-bottom: 0.5rem;">Raw Regression Score</p>
@@ -513,7 +514,6 @@
                         <div id="difficultyScore" class="difficulty-score" style="color: #00ff88;"></div>
                         <p style="font-size: 0.8rem; opacity: 0.6;">Easy: 800-1200, Medium: 1200-1600, Hard: 1600-3500</p>
                     </div>
-                    <div id="constraintInfo" style="margin-top: 1rem; padding: 0.5rem; border-radius: 10px; font-size: 0.9rem;"></div>
                 </div>
             </div>
         </div>
@@ -539,6 +539,51 @@
         function hideModelInfo() {
             const modelInfo = document.getElementById('modelInfo');
             modelInfo.classList.remove('show');
+        }
+
+        function drawPieChart(confidence) {
+            const canvas = document.getElementById('pieChart');
+            const ctx = canvas.getContext('2d');
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            const radius = 80;
+            
+            // Clear canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            const data = [
+                { label: 'Easy', value: confidence.easy, color: '#2ecc71' },
+                { label: 'Medium', value: confidence.medium, color: '#f39c12' },
+                { label: 'Hard', value: confidence.hard, color: '#e74c3c' }
+            ];
+            
+            let startAngle = -Math.PI / 2;
+            
+            data.forEach(segment => {
+                const sliceAngle = segment.value * 2 * Math.PI;
+                
+                ctx.beginPath();
+                ctx.moveTo(centerX, centerY);
+                ctx.arc(centerX, centerY, radius, startAngle, startAngle + sliceAngle);
+                ctx.closePath();
+                ctx.fillStyle = segment.color;
+                ctx.fill();
+                
+                // Add label
+                const midAngle = startAngle + sliceAngle / 2;
+                const labelX = centerX + (radius * 0.6) * Math.cos(midAngle);
+                const labelY = centerY + (radius * 0.6) * Math.sin(midAngle);
+                
+                if (segment.value > 0.05) {
+                    ctx.fillStyle = '#fff';
+                    ctx.font = 'bold 12px Poppins';
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText(`${(segment.value * 100).toFixed(0)}%`, labelX, labelY);
+                }
+                
+                startAngle += sliceAngle;
+            });
         }
 
         document.getElementById('predictionForm').addEventListener('submit', async (e) => {
@@ -621,25 +666,12 @@
             document.getElementById('hybridScore').textContent = result.hybridScore.toFixed(2);
             document.getElementById('difficultyScore').textContent = result.difficultyScore;
             
-            // Show constraint information
-            const constraintInfo = document.getElementById('constraintInfo');
-            if (result.constraintApplied) {
-                constraintInfo.innerHTML = `
-                    <div style="background: rgba(0, 212, 255, 0.2); border: 1px solid rgba(0, 212, 255, 0.3);">
-                        <i class="fas fa-magic"></i> <strong>Constraint Applied!</strong><br>
-                        Score adjusted from ${result.rawScore.toFixed(2)} to ${result.hybridScore.toFixed(2)} based on ${result.difficultyClass} classification
-                    </div>
-                `;
-            } else {
-                constraintInfo.innerHTML = `
-                    <div style="background: rgba(0, 255, 136, 0.2); border: 1px solid rgba(0, 255, 136, 0.3);">
-                        <i class="fas fa-check"></i> <strong>No Constraint Needed</strong><br>
-                        Raw score ${result.rawScore.toFixed(2)} already fits ${result.difficultyClass} range
-                    </div>
-                `;
+            // Draw pie chart
+            if (result.confidence) {
+                drawPieChart(result.confidence);
             }
             
-            // Show confidence if available
+            // Show confidence bars
             if (result.confidence) {
                 const confidenceDiv = document.getElementById('confidence');
                 confidenceDiv.innerHTML = `
