@@ -2,11 +2,11 @@
 
 An intelligent system that predicts the difficulty of competitive programming problems using a hybrid machine learning approach combining classification and regression models.
 
-## 👤 Author
+## Author
 
 **Ishaan Arora**
 
-## 📋 Project Overview
+## Project Overview
 
 AutoJudge analyzes programming problem descriptions and predicts:
 1. **Difficulty Class**: Easy, Medium, or Hard
@@ -14,13 +14,13 @@ AutoJudge analyzes programming problem descriptions and predicts:
 
 The system uses a **hybrid approach** where classification predictions constrain regression outputs, improving overall prediction accuracy.
 
-## 🎯 Demo Video
+##  Demo Video
 
 [Link to Demo Video] *(Add your 2-3 minute demo video link here)*
 
-## 📊 Dataset
+##  Dataset
 
-- **Source**: Competitive programming problems (Codeforces-style)
+- **Source**: Provided - problems_data.jsonl
 - **Total Samples**: 4,112 problems
 - **Train/Test Split**: 80/20 (3,289 train, 823 test)
 - **Features**: Problem description, input/output format, constraints
@@ -28,14 +28,14 @@ The system uses a **hybrid approach** where classification predictions constrain
   - Classification: Easy, Medium, Hard
   - Regression: Difficulty score (1.1 - 9.7)
 
-## 🧠 Approach & Models
+##  Approach & Models
 
 ### Hybrid Model Architecture
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │                    HYBRID MODEL APPROACH                    │
-│         (Classification constrains Regression)              │
+│         (Regression constrained by classification)          │
 └─────────────────────────────────────────────────────────────┘
                               │
         ┌─────────────────────┴─────────────────────┐
@@ -75,7 +75,7 @@ Class Boundaries:
 └── Hard:   5.5 - 9.7  → Codeforces 1600-3500
 ```
 
-## 📈 Evaluation Metrics
+## Evaluation Metrics
 
 ### Classification Results
 
@@ -110,7 +110,7 @@ Actual Hard        31       78      316
 - Predictions improved: 208 (25.3%)
 - Net benefit: +41 predictions
 
-## 🚀 How to Run Locally
+##  How to Run Locally
 
 ### Prerequisites
 
@@ -126,9 +126,9 @@ python backend_service.py
 
 You should see:
 ```
-✅ Hybrid models loaded successfully!
-🚀 Starting AutoJudge backend service with hybrid model...
-📡 Backend running on: http://localhost:5000
+ Hybrid models loaded successfully!
+ Starting AutoJudge backend service with hybrid model...
+ Backend running on: http://localhost:5000
 ```
 
 ### Step 2: Open the Frontend
@@ -142,7 +142,7 @@ Open `simple_frontend.html` in your web browser (double-click or drag into brows
 3. Click "Cast Prediction Spell"
 4. View the predicted difficulty class and score
 
-## 🌐 Web Interface
+##  Web Interface
 
 The web interface provides:
 
@@ -159,7 +159,7 @@ The web interface provides:
 
 *(Add a screenshot of your web interface here)*
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 AutoJudge/
@@ -180,7 +180,7 @@ AutoJudge/
     └── reg_scaler.pkl
 ```
 
-## 🔧 API Endpoints
+##  API Endpoints
 
 ### POST /predict
 
@@ -220,7 +220,7 @@ Health check endpoint.
 }
 ```
 
-## 📚 Dependencies
+## Dependencies
 
 - Flask & Flask-CORS (Web server)
 - scikit-learn (ML models)
@@ -228,6 +228,6 @@ Health check endpoint.
 - scipy (Sparse matrices)
 - joblib (Model serialization)
 
-## 🎓 Acknowledgments
+## Acknowledgments
 
-This project was developed as part of a Machine Learning course assignment.
+This project was developed as part of an open project by ACM, IIT Roorkee.
