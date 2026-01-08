@@ -16,7 +16,7 @@ The system uses a **hybrid approach** where classification predictions constrain
 
 ##  Demo Video
 
-[Link to Demo Video] *(Add your 2-3 minute demo video link here)*
+https://drive.google.com/drive/folders/1qq0J5LKzopBYpBzqGUsvXqgqDfOKf8Te?usp=sharing
 
 ##  Dataset
 
